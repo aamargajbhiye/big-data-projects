@@ -14,14 +14,12 @@ public class SparkIgfsDemo {
         sparkConf.setMaster("local[*]");
         SparkSession sparkSession = SparkSession.builder().config(sparkConf).getOrCreate();
 
-/*
         List<String> names = new ArrayList<>();
-        names.add("amar");
-        names.add("Komal");
+        names.add("value1");
+        names.add("value2");
         Dataset<Row> dataFrame = sparkSession.createDataset(names, Encoders.STRING()).toDF();
-        dataFrame.show();
+
         dataFrame.write().text("igfs://myFileSystem@192.168.0.106/file/file.txt");
-*/
 
         sparkSession.read().text("igfs://myFileSystem@192.168.0.106/file/file.txt").show();
 
