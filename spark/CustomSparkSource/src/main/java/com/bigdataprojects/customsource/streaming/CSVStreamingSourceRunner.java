@@ -27,10 +27,8 @@ public class CSVStreamingSourceRunner {
 
     private static void writeSourceAsStream(SparkSession sparkSession) {
 
-        long start = System.currentTimeMillis();
-
         Dataset<Row> dataset = sparkSession.readStream().
-                format("com.bigdataprojects.customstreamingsource.CSVStreamingSource")
+                format("com.bigdataprojects.customsource.streaming.CSVStreamingSource")
                 .option("filepath", "/home/amar/Downloads/1000000 Sales Records.csv")
                 .load();
 
@@ -44,8 +42,6 @@ public class CSVStreamingSourceRunner {
     }
 
     private static void streamGroupBySaveResultAsFile(SparkSession sparkSession) {
-
-        long start = System.currentTimeMillis();
 
         Dataset<Row> dataset = sparkSession.readStream().
                 format("com.bigdataprojects.customstreamingsource.CSVStreamingSource")
