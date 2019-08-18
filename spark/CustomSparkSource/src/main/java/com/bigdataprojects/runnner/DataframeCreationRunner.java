@@ -1,6 +1,6 @@
 package com.bigdataprojects.runnner;
 
-import com.bigdataprojects.customsource.ValueConverter;
+import com.bigdataprojects.customsource.staticsource.ValueConverter;
 import com.opencsv.CSVReader;
 import org.apache.spark.sql.*;
 import org.apache.spark.sql.types.DataTypes;

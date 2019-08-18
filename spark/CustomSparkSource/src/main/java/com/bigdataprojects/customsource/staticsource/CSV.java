@@ -1,6 +1,6 @@
-package com.bigdataprojects.customsource;
+package com.bigdataprojects.customsource.staticsource;
 
-import com.bigdataprojects.customsource.reader.CSVDataSourceReader;
+import com.bigdataprojects.customsource.staticsource.reader.CSVDataSourceReader;
 import org.apache.spark.sql.SaveMode;
 import org.apache.spark.sql.sources.v2.DataSourceOptions;
 import org.apache.spark.sql.sources.v2.DataSourceV2;

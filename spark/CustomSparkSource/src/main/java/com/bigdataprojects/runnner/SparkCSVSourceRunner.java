@@ -22,9 +22,18 @@ public class SparkCSVSourceRunner implements Runnable {
     public void run() {
         long startTime = System.currentTimeMillis();
         Dataset<Row> dataset = sparkSession.read().option("header", true).option("inferschema", true).csv(filePath);
-        Dataset<Row> rowDataset = dataset.groupBy(dataset.col("Country"))
+       /* Dataset<Row> rowDataset = dataset.groupBy(dataset.col("Country"))
                 .agg(
                         functions.sum("Units Sold").as("Total_Units_Sold"),
+                        functions.sum("Total Revenue").as("Total_Revenue_Per_Country"),
+                        functions.sum("Total Profit").as("Total_Profit_Per_Country")
+                ).orderBy(functions.col("Total_Profit_Per_Country").desc());
+
+        //rowDataset.explain();
+        rowDataset.show();*/
+
+        Dataset<Row> rowDataset = dataset.groupBy(dataset.col("Region"))
+                .agg(
                         functions.sum("Total Revenue").as("Total_Revenue_Per_Country"),
                         functions.sum("Total Profit").as("Total_Profit_Per_Country")
                 ).orderBy(functions.col("Total_Profit_Per_Country").desc());

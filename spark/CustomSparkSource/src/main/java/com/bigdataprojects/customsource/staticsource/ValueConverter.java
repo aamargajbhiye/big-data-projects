@@ -1,4 +1,4 @@
-package com.bigdataprojects.customsource;
+package com.bigdataprojects.customsource.staticsource;
 
 import org.apache.spark.unsafe.types.UTF8String;
 

@@ -1,4 +1,4 @@
-package com.bigdataprojects.customsource.reader;
+package com.bigdataprojects.customsource.staticsource.reader;
 
 import org.apache.spark.sql.catalyst.InternalRow;
 import org.apache.spark.sql.sources.Filter;

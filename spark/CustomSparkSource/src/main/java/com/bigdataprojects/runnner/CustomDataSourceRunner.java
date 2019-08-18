@@ -21,7 +21,7 @@ public class CustomDataSourceRunner implements Runnable {
     @Override
     public void run() {
         long startTime = System.currentTimeMillis();
-        Dataset<Row> dataset = sparkSession.read().format("com.bigdataprojects.customsource.CSV").option("filepath", filePath).load();
+        Dataset<Row> dataset = sparkSession.read().format("com.bigdataprojects.customsource.staticsource.CSV").option("filepath", filePath).load();
         Dataset<Row> rowDataset = dataset.groupBy(dataset.col("Country"))
                 .agg(
                         functions.sum("Units Sold").as("Total_Units_Sold"),

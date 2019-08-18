@@ -13,7 +13,8 @@ public class CSVTestRunner {
         /**
          * Sales records csv can be downloaded from "http://eforexcel.com/wp/wp-content/uploads/2017/07/1000000%20Sales%20Records.7z"
          */
-        String filePath = "<path_to_Sales Records.csv>";
+        //String filePath = "<path_to_Sales Records.csv>";
+        String filePath = "/home/amar/Downloads/1000000 Sales Records.csv";
         SparkSession sparkSession = SparkSession.builder()
                 .master("local[*]")
                 .getOrCreate();

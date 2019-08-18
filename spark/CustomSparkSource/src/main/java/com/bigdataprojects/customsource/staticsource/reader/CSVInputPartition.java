@@ -1,7 +1,7 @@
-package com.bigdataprojects.customsource.reader;
+package com.bigdataprojects.customsource.staticsource.reader;
 
+import com.bigdataprojects.customsource.staticsource.ValueConverter;
 import com.opencsv.CSVReader;
-import com.bigdataprojects.customsource.ValueConverter;
 import org.apache.spark.sql.catalyst.InternalRow;
 import org.apache.spark.sql.sources.v2.reader.InputPartition;
 import org.apache.spark.sql.sources.v2.reader.InputPartitionReader;
