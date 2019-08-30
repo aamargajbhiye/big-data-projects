@@ -2,8 +2,6 @@ package com.bigdataprojects.ignite.plugin.segmentation;
 
 import org.apache.ignite.IgniteCheckedException;
 import org.apache.ignite.cluster.ClusterNode;
-import org.apache.ignite.internal.GridKernalContext;
-import org.apache.ignite.internal.GridPluginContext;
 import org.apache.ignite.internal.IgniteKernal;
 import org.apache.ignite.internal.processors.segmentation.GridSegmentationProcessor;
 import org.apache.ignite.plugin.*;

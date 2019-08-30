@@ -16,7 +16,7 @@ public class SegmentationResolverTest {
 
         IgniteConfiguration igniteConfiguration = new IgniteConfiguration();
 
-        InetAddress inetAddress = InetAddress.getByName("www.google.com");
+        InetAddress inetAddress = InetAddress.getByName("www.bugdbug.com");
         ReachabilitySegmentationResolver reachabilitySegmentationResolver =
                 new ReachabilitySegmentationResolver(inetAddress);
         SegmentationResolver[] segmentationResolvers = new SegmentationResolver[]
