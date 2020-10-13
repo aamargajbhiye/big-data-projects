@@ -8,11 +8,11 @@ public class CustomDataSourceRunner {
                 .master("local[*]")
                 .getOrCreate();
 
-       JdbcDataSourceRunner jdbcDataSourceRunner = new JdbcDataSourceRunner(sparkSession);
-       jdbcDataSourceRunner.run();
+        JdbcDataSourceRunner jdbcDataSourceRunner = new JdbcDataSourceRunner(sparkSession);
+        jdbcDataSourceRunner.run();
 
-      /* CsvDataSourceRunner csvDataSourceRunner = new CsvDataSourceRunner(sparkSession);
-       csvDataSourceRunner.run();*/
+        CsvDataSourceRunner csvDataSourceRunner = new CsvDataSourceRunner(sparkSession);
+        csvDataSourceRunner.run();
 
     }
 }

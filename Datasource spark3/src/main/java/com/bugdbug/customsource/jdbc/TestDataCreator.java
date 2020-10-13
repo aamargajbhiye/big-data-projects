@@ -42,8 +42,8 @@ public class TestDataCreator {
 
     public static void createTestData(JdbcParams jdbcParams)
             throws SQLException, ClassNotFoundException {
-        //createTable(jdbcParams);
-        //insertTestData(jdbcParams);
+        createTable(jdbcParams);
+        insertTestData(jdbcParams);
     }
 
     private static void insertTestData(JdbcParams jdbcParams) throws SQLException, ClassNotFoundException {
