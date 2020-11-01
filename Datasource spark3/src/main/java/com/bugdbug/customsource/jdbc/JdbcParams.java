@@ -7,6 +7,7 @@ import java.util.List;
  *
  */
 public class JdbcParams implements Serializable {
+    private final JdbcParamsBuilder builder;
     private String tableName;
     private String jdbcUrl;
     private String userName;
@@ -25,6 +26,7 @@ public class JdbcParams implements Serializable {
         this.partitioningColumn = builder.partitioningColumn;
         this.numPartitions = builder.numPartitions;
         this.localityInfo = builder.localityInfo;
+        this.builder = builder;
     }
 
     public String getPartitioningColumn() {
@@ -59,7 +61,11 @@ public class JdbcParams implements Serializable {
         return localityInfo;
     }
 
-    public static class JdbcParamsBuilder {
+    public JdbcParams buildWith(String tableName) {
+        return builder.setTableName(tableName).build();
+    }
+
+    public static class JdbcParamsBuilder implements Serializable{
         private String tableName;
         private String jdbcUrl;
         private String userName;
@@ -98,6 +104,7 @@ public class JdbcParams implements Serializable {
             this.partitioningColumn = partitioningColumn;
             return this;
         }
+
         public JdbcParamsBuilder setNumPartitions(int numPartitions) {
             this.numPartitions = numPartitions;
             return this;

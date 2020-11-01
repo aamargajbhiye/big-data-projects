@@ -1,14 +1,14 @@
-package com.bugdbug.customsource.jdbc;
+package com.bugdbug.customsource.jdbc.read;
 
+import com.bugdbug.customsource.jdbc.JdbcParams;
+import com.bugdbug.customsource.jdbc.utils.JdbcUtil;
 import org.apache.spark.sql.connector.read.Batch;
 import org.apache.spark.sql.connector.read.InputPartition;
 import org.apache.spark.sql.connector.read.PartitionReaderFactory;
 import org.apache.spark.sql.types.StructType;
-import org.apache.spark.sql.util.CaseInsensitiveStringMap;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 public class JdbcBatch implements Batch {
     private final StructType schema;
@@ -32,7 +32,7 @@ public class JdbcBatch implements Batch {
     private InputPartition[] createPartitions() {
         InputPartition[] partitions = new JdbcInputPartition[jdbcParams.getNumPartitions()];
         try {
-            List<Integer> partitionsColumnValues = TestDataCreator.getPartitionsColumnValues(jdbcParams);
+            List<Integer> partitionsColumnValues = JdbcUtil.getPartitionsColumnValues(jdbcParams);
             int bucketSize = (int) Math.ceil(partitionsColumnValues.size() * 1.0 / jdbcParams.getNumPartitions());
             int startIndex = 0;
             int endIndex = bucketSize;

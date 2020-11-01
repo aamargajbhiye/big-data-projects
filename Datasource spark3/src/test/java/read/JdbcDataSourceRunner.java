@@ -1,6 +1,9 @@
+package read;
+
 import com.bugdbug.customsource.jdbc.Constants;
 import com.bugdbug.customsource.jdbc.JdbcParams;
-import com.bugdbug.customsource.jdbc.TestDataCreator;
+import com.bugdbug.customsource.jdbc.utils.JdbcUtil;
+import com.bugdbug.customsource.jdbc.utils.TestDataCreator;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -17,8 +20,9 @@ public class JdbcDataSourceRunner implements Runnable {
 
     @Override
     public void run() {
+        JdbcParams jdbcParams = null;
         try {
-            JdbcParams jdbcParams = preRunSetup();
+            jdbcParams = preRunSetup();
             Dataset<Row> dataset = sparkSession.read()
                     .format("com.bugdbug.customsource.jdbc.JDBC")
                     .option(Constants.TABLE_NAME, jdbcParams.getTableName())
@@ -33,12 +37,15 @@ public class JdbcDataSourceRunner implements Runnable {
             dataset.show();
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            if (jdbcParams != null)
+                JdbcUtil.dropTable(jdbcParams);
         }
     }
 
     private JdbcParams preRunSetup() throws SQLException, ClassNotFoundException {
         JdbcParams jdbcParams = new JdbcParams.JdbcParamsBuilder()
-                .setTableName("REGISTRATION")
+                .setTableName("SALES_DATA")
                 .setJdbcDriver("org.h2.Driver")
                 .setJdbcUrl("jdbc:h2:~/test")
                 .setPassword("")

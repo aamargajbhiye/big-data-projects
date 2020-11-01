@@ -1,4 +1,9 @@
-package com.bugdbug.customsource.jdbc;
+package com.bugdbug.customsource.jdbc.utils;
+
+import com.bugdbug.customsource.jdbc.JdbcParams;
+import com.bugdbug.customsource.jdbc.utils.JdbcUtil;
+import org.apache.spark.sql.types.StructField;
+import org.apache.spark.sql.types.StructType;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,8 +16,8 @@ public class TestDataCreator {
         Connection conn = null;
         Statement stmt = null;
         try {
-            conn = Utils.getConnection(jdbcParams);
-            System.out.println("Creating table in given database...");
+            conn = JdbcUtil.getConnection(jdbcParams);
+            System.out.println("Creating table in given database..." + jdbcParams.getTableName());
             stmt = conn.createStatement();
             String sql = "CREATE TABLE  " + jdbcParams.getTableName() +
                     " (id INTEGER not NULL, " +
@@ -21,7 +26,7 @@ public class TestDataCreator {
                     " age INTEGER, " +
                     " PRIMARY KEY ( id ))";
             stmt.executeUpdate(sql);
-            System.out.println("Created table in given database...");
+            System.out.println("Created table in given database..." + jdbcParams.getTableName());
             // STEP 4: Clean-up environment
             stmt.close();
             conn.close();
@@ -46,8 +51,9 @@ public class TestDataCreator {
         insertTestData(jdbcParams);
     }
 
+
     private static void insertTestData(JdbcParams jdbcParams) throws SQLException, ClassNotFoundException {
-        Connection connection = Utils.getConnection(jdbcParams);
+        Connection connection = JdbcUtil.getConnection(jdbcParams);
         String sql = "INSERT INTO " + jdbcParams.getTableName() + " VALUES (?, ?, ?, ?)";
         PreparedStatement stmt = connection.prepareStatement(sql);
 
@@ -76,43 +82,9 @@ public class TestDataCreator {
             }
 
         }
-        System.out.println("Inserted records into the table...");
+        System.out.println("Inserted records into the table..." + jdbcParams.getTableName());
         // STEP 4: Clean-up environment
         stmt.close();
         connection.close();
-    }
-
-    public static List<Integer> getPartitionsColumnValues(JdbcParams jdbcParams)
-            throws SQLException, ClassNotFoundException {
-        Connection connection = Utils.getConnection(jdbcParams);
-        String sql = "SELECT " + jdbcParams.getPartitioningColumn() + " FROM " + jdbcParams.getTableName();
-        PreparedStatement statement = connection.prepareStatement(sql);
-        ResultSet rs = statement.executeQuery();
-        List<Integer> columnValues = new ArrayList<>();
-        while (rs.next()) {
-            columnValues.add(rs.getInt(1));
-        }
-        return columnValues;
-    }
-
-    public static ResultSet readPartition(JdbcParams jdbcParams, Integer[] values)
-            throws SQLException, ClassNotFoundException {
-        Connection connection = Utils.getConnection(jdbcParams);
-        String placeHolders = String.join(",", Collections.nCopies(values.length, "?"));
-        String sql = "SELECT * from "
-                + jdbcParams.getTableName()
-                + " where " + jdbcParams.getPartitioningColumn()
-                + " in (" + placeHolders + ")";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            int i = 1;
-            for (Integer param : values) {
-                ps.setInt(i++, param);
-            }
-            return ps.executeQuery();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

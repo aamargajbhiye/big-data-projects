@@ -1,4 +1,4 @@
-package com.bugdbug.customsource.jdbc;
+package com.bugdbug.customsource.jdbc.read;
 
 import org.apache.spark.sql.connector.read.InputPartition;
 

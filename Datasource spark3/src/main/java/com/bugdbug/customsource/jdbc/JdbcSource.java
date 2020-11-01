@@ -1,5 +1,7 @@
 package com.bugdbug.customsource.jdbc;
 
+import com.bugdbug.customsource.jdbc.utils.SchemaUtil;
+import com.bugdbug.customsource.jdbc.utils.Util;
 import org.apache.spark.sql.connector.catalog.Table;
 import org.apache.spark.sql.connector.catalog.TableProvider;
 import org.apache.spark.sql.connector.expressions.Transform;
@@ -9,14 +11,14 @@ import org.apache.spark.sql.util.CaseInsensitiveStringMap;
 import java.sql.SQLException;
 import java.util.Map;
 
-public class JDBC implements TableProvider {
+public class JdbcSource implements TableProvider{
     private JdbcParams jdbcParams;
 
     @Override
     public StructType inferSchema(CaseInsensitiveStringMap options) {
-        this.jdbcParams = Utils.extractOptions(options);
+        this.jdbcParams = Util.extractOptions(options);
         try {
-            return Utils.getSchema(this.jdbcParams);
+            return SchemaUtil.getSchema(this.jdbcParams);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

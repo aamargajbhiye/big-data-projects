@@ -1,10 +1,9 @@
-package com.bugdbug.customsource.jdbc;
+package com.bugdbug.customsource.jdbc.read;
 
+import com.bugdbug.customsource.jdbc.JdbcParams;
 import org.apache.spark.sql.connector.read.Batch;
 import org.apache.spark.sql.connector.read.Scan;
-import org.apache.spark.sql.connector.read.streaming.MicroBatchStream;
 import org.apache.spark.sql.types.StructType;
-import org.apache.spark.sql.util.CaseInsensitiveStringMap;
 
 import java.util.Map;
 

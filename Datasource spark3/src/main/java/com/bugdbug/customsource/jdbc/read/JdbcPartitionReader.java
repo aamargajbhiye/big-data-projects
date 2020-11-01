@@ -1,13 +1,13 @@
-package com.bugdbug.customsource.jdbc;
+package com.bugdbug.customsource.jdbc.read;
 
+import com.bugdbug.customsource.jdbc.JdbcParams;
+import com.bugdbug.customsource.jdbc.ValueConverters;
+import com.bugdbug.customsource.jdbc.utils.JdbcUtil;
 import org.apache.spark.sql.catalyst.InternalRow;
 import org.apache.spark.sql.connector.read.PartitionReader;
 import org.apache.spark.sql.types.StructType;
 import scala.collection.JavaConverters;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -24,7 +24,7 @@ public class JdbcPartitionReader implements PartitionReader<InternalRow> {
     public JdbcPartitionReader(
             JdbcInputPartition jdbcInputPartition,
             StructType schema,
-            JdbcParams jdbcParams) throws FileNotFoundException, URISyntaxException, SQLException, ClassNotFoundException {
+            JdbcParams jdbcParams) throws SQLException, ClassNotFoundException {
         this.jdbcInputPartition = jdbcInputPartition;
         this.valueConverters = ValueConverters.getConverters(schema);
         this.jdbcParams = jdbcParams;
@@ -32,7 +32,7 @@ public class JdbcPartitionReader implements PartitionReader<InternalRow> {
     }
 
     private void createJdbcReader() throws SQLException, ClassNotFoundException {
-        resultSet = TestDataCreator.readPartition(jdbcParams, jdbcInputPartition.getValues());
+        resultSet = JdbcUtil.readPartitionData(jdbcParams, jdbcInputPartition.getValues());
     }
 
     @Override

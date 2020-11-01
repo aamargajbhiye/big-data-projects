@@ -1,5 +1,6 @@
-package com.bugdbug.customsource.jdbc;
+package com.bugdbug.customsource.jdbc.read;
 
+import com.bugdbug.customsource.jdbc.JdbcParams;
 import org.apache.spark.sql.connector.read.Scan;
 import org.apache.spark.sql.connector.read.ScanBuilder;
 import org.apache.spark.sql.types.StructType;
