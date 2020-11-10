@@ -37,12 +37,18 @@ public class JdbcDataWriter implements DataWriter<InternalRow> {
     private void writeRow(InternalRow internalRow) {
         for (int i = 0; i < setters.size(); i++) {
             setters.get(i).apply(preparedStatement, i + 1, internalRow);
+            try {
+                preparedStatement.executeUpdate();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
     }
 
     @Override
     public WriterCommitMessage commit() {
         try {
+            preparedStatement.close();
             connection.commit();
         } catch (SQLException e) {
             e.printStackTrace();

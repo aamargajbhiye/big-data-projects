@@ -35,4 +35,7 @@ public class JdbcBatchWrite implements BatchWrite {
         JdbcUtil.dropTable(modifiedjdbcParams);
     }
 
+    public boolean useCommitCoordinator() {
+        return true;
+    }
 }
